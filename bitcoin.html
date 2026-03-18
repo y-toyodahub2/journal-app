@@ -22,8 +22,6 @@
       background: #fff;
       display: flex;
       flex-direction: column;
-      position: relative;
-      overflow: hidden;
     }
 
     /* Status Bar */
@@ -35,20 +33,9 @@
       padding: 0 16px 8px;
       justify-content: space-between;
     }
-    .status-time {
-      font-size: 17px;
-      font-weight: 600;
-      color: #333;
-      letter-spacing: 0;
-    }
-    .status-icons {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .status-icons svg {
-      fill: #333;
-    }
+    .status-time { font-size: 17px; font-weight: 600; color: #333; }
+    .status-icons { display: flex; align-items: center; gap: 6px; }
+    .status-icons svg { fill: #333; }
 
     /* Top Navigation */
     .top-nav {
@@ -60,241 +47,126 @@
       border-bottom: 0.5px solid #c7c7c7;
     }
     .nav-close {
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      flex-shrink: 0;
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; flex-shrink: 0;
     }
     .nav-title {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 17px;
-      font-weight: 600;
-      color: #333;
-      white-space: nowrap;
+      position: absolute; left: 50%; transform: translateX(-50%);
+      font-size: 17px; font-weight: 600; color: #333; white-space: nowrap;
     }
 
     /* Paging dots */
     .paging {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      padding: 8px 16px;
-      background: #fff;
+      display: flex; justify-content: center; gap: 8px;
+      padding: 10px 16px; background: #fff;
     }
-    .dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 99px;
-      background: #d9d9d9;
-    }
-    .dot.active {
-      background: #ff333f;
-    }
+    .dot { width: 4px; height: 4px; border-radius: 99px; background: #d9d9d9; }
+    .dot.active { background: #ff333f; }
 
-    /* Illustration */
-    .illustration {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 16px 0 8px;
-      background: #fff;
-    }
-
-    /* Content area */
-    .content {
-      flex: 1;
-      background: #fff;
+    /* ① Asset Hero — 最初に目が行く */
+    .asset-hero {
+      margin: 0 16px;
+      background: #fff8f8;
+      border: 1.5px solid #ffd0d2;
+      border-radius: 12px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      padding: 16px 24px 0;
+      gap: 12px;
     }
-
-    /* Speech bubble */
-    .speech-bubble {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .asset-hero-label {
+      font-size: 12px;
+      color: #999;
+      font-weight: 400;
     }
-    .bubble-box {
-      background: #4dc9ff;
-      border-radius: 3.5px;
-      padding: 6px 16px 4px;
-      width: 100%;
-    }
-    .bubble-box p {
-      font-size: 14px;
-      font-weight: 700;
-      color: #fff;
-      text-align: center;
-    }
-    .bubble-tip {
-      width: 0;
-      height: 0;
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      border-top: 10px solid #4dc9ff;
-    }
-
-    /* Main title */
-    .main-title {
-      text-align: center;
-    }
-    .main-title .headline {
-      font-size: 26px;
-      font-weight: 700;
-      color: #333;
-      letter-spacing: 0.5px;
-    }
-    .main-title .headline span {
-      font-size: 20px;
-    }
-    .main-title .subline {
-      font-size: 20px;
-      font-weight: 700;
-      color: #333;
-      margin-top: 2px;
-    }
-
-    /* Info card */
-    .info-card {
-      margin: 0 0;
-      border: 0.5px solid #c7c7c7;
-      border-radius: 8px;
-      padding: 8px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .info-row {
+    .asset-row {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
     }
-    .info-label {
-      font-size: 12px;
+    .asset-left { display: flex; flex-direction: column; gap: 4px; }
+    .asset-name { font-size: 13px; color: #555; font-weight: 400; }
+    .asset-amount {
+      font-size: 28px;
+      font-weight: 700;
       color: #333;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
     }
-    .info-value {
-      font-size: 12px;
-      font-weight: 600;
-      color: #333;
-      white-space: nowrap;
-    }
-    .info-warning {
+    .asset-unit { font-size: 16px; font-weight: 600; }
+    .asset-warning {
       display: flex;
       align-items: center;
       gap: 4px;
-      font-size: 12px;
+      font-size: 11px;
       color: #ff333f;
+      margin-top: 2px;
     }
-    .info-warning svg {
-      flex-shrink: 0;
+    .asset-divider {
+      height: 0.5px;
+      background: #ffd0d2;
+    }
+    .asset-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .asset-total-label { font-size: 13px; color: #555; }
+    .asset-total-amount {
+      font-size: 20px;
+      font-weight: 700;
+      color: #333;
     }
 
-    /* Promo banner */
-    .promo-wrap {
-      padding: 0 16px;
+    /* ② Promo — 購入の後押し（補足） */
+    .promo-section {
+      margin: 16px 16px 0;
     }
     .promo-banner {
       background: #006ed1;
       border-radius: 8px;
-      padding: 6px 12px;
+      padding: 10px 16px;
       text-align: center;
     }
-    .promo-banner .promo-sub {
-      font-size: 12px;
-      color: #fff;
-      line-height: 1.4;
-    }
-    .promo-banner .promo-main {
-      font-size: 14px;
-      font-weight: 700;
-      color: #fff;
-      line-height: 1.4;
-    }
-    .promo-beak {
+    .promo-sub { font-size: 12px; color: #fff; line-height: 1.5; }
+    .promo-main { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.5; }
+
+    /* ③ Chart — 補足ビジュアル */
+    .chart-section {
+      margin: 16px 16px 0;
       display: flex;
-      padding-left: 48px;
+      flex-direction: column;
+      gap: 4px;
     }
-    .promo-beak-inner {
-      width: 0;
-      height: 0;
-      border-left: 8px solid transparent;
-      border-right: 8px solid transparent;
-      border-top: 8px solid #006ed1;
-    }
+    .chart-label { font-size: 11px; color: #aaa; text-align: right; }
 
     /* Action button */
-    .action-btn-wrap {
-      padding: 0 16px;
-    }
+    .action-section { margin: 20px 16px 0; }
     .action-btn {
-      width: 100%;
-      min-height: 44px;
-      background: #ff333f;
-      border: none;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
+      width: 100%; min-height: 50px;
+      background: #ff333f; border: none; border-radius: 8px;
+      font-size: 16px; font-weight: 700; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; letter-spacing: 0.3px;
     }
 
     /* Bottom CTA */
-    .cta {
-      background: #fff;
-      padding: 16px;
-      margin-top: auto;
-    }
-    .cta-buttons {
-      display: flex;
-      gap: 16px;
-    }
-    .btn {
-      flex: 1;
-      min-height: 44px;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      border: none;
-    }
-    .btn-outline {
-      background: #fff;
-      border: 1px solid #ff333f;
-      color: #ff333f;
-    }
-    .btn-fill {
-      background: #ff333f;
-      color: #fff;
+    .cta { padding: 12px 16px 0; margin-top: auto; }
+    .btn-skip {
+      width: 100%; min-height: 44px;
+      background: #fff; border: 1px solid #c7c7c7;
+      border-radius: 8px; font-size: 15px; font-weight: 500;
+      color: #666; display: flex; align-items: center;
+      justify-content: center; cursor: pointer;
     }
 
     /* Home indicator */
     .home-indicator {
-      height: 34px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      padding-bottom: 8px;
+      height: 34px; display: flex;
+      align-items: flex-end; justify-content: center; padding-bottom: 8px;
     }
-    .home-bar {
-      width: 134px;
-      height: 5px;
-      background: #333;
-      border-radius: 100px;
-    }
+    .home-bar { width: 134px; height: 5px; background: #333; border-radius: 100px; }
   </style>
 </head>
 <body>
@@ -304,21 +176,18 @@
     <div class="status-bar">
       <span class="status-time">9:41</span>
       <div class="status-icons">
-        <!-- Signal -->
         <svg width="18" height="12" viewBox="0 0 18 12">
           <rect x="0" y="8" width="3" height="4" rx="0.5"/>
           <rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/>
           <rect x="9" y="3" width="3" height="9" rx="0.5"/>
           <rect x="13.5" y="0" width="3" height="12" rx="0.5"/>
         </svg>
-        <!-- Wifi -->
         <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="#333" stroke-width="1.5" stroke-linecap="round">
           <path d="M1 4.5C3.5 2 12.5 2 15 4.5"/>
           <path d="M3.2 6.8C5 5.1 11 5.1 12.8 6.8"/>
           <path d="M5.5 9C6.5 8 9.5 8 10.5 9"/>
           <circle cx="8" cy="11" r="0.8" fill="#333" stroke="none"/>
         </svg>
-        <!-- Battery -->
         <svg width="26" height="12" viewBox="0 0 26 12">
           <rect x="0" y="1" width="22" height="10" rx="2" stroke="#333" stroke-width="1" fill="none"/>
           <rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#333"/>
@@ -346,93 +215,83 @@
       <div class="dot active"></div>
     </div>
 
-    <!-- Illustration -->
-    <div class="illustration">
-      <svg width="280" height="120" viewBox="0 0 280 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Grid lines -->
-        <line x1="20" y1="20" x2="20" y2="95" stroke="#e8e8e8" stroke-width="1"/>
-        <line x1="20" y1="95" x2="268" y2="95" stroke="#e8e8e8" stroke-width="1"/>
-        <line x1="20" y1="70" x2="268" y2="70" stroke="#f0f0f0" stroke-width="1" stroke-dasharray="4 3"/>
-        <line x1="20" y1="45" x2="268" y2="45" stroke="#f0f0f0" stroke-width="1" stroke-dasharray="4 3"/>
-        <line x1="20" y1="20" x2="268" y2="20" stroke="#f0f0f0" stroke-width="1" stroke-dasharray="4 3"/>
-        <!-- Bars -->
-        <rect x="34"  y="80" width="18" height="15" rx="3" fill="#ffd0d2"/>
-        <rect x="72"  y="72" width="18" height="23" rx="3" fill="#ffd0d2"/>
-        <rect x="110" y="62" width="18" height="33" rx="3" fill="#ffd0d2"/>
-        <rect x="148" y="50" width="18" height="45" rx="3" fill="#ff8a8f"/>
-        <rect x="186" y="36" width="18" height="59" rx="3" fill="#ff6166"/>
-        <rect x="224" y="22" width="18" height="73" rx="3" fill="#ff333f"/>
-        <!-- Trend line -->
+    <!-- ① 資産ヒーロー -->
+    <div class="asset-hero">
+      <span class="asset-hero-label">つみたてに使える資産</span>
+
+      <div class="asset-row">
+        <div class="asset-left">
+          <span class="asset-name">保有ポイント</span>
+          <span class="asset-amount"><span class="asset-unit">P</span>1,000</span>
+          <div class="asset-warning">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+              <circle cx="7" cy="7" r="6.5" stroke="#ff333f"/>
+              <path d="M7 4v4" stroke="#ff333f" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="7" cy="10" r="0.75" fill="#ff333f"/>
+            </svg>
+            500Pが期限切れ間近（2026/03/31）
+          </div>
+        </div>
+      </div>
+
+      <div class="asset-divider"></div>
+
+      <div class="asset-row">
+        <div class="asset-left">
+          <span class="asset-name">売上金</span>
+          <span class="asset-amount"><span class="asset-unit">¥</span>3,000</span>
+        </div>
+      </div>
+
+      <div class="asset-divider"></div>
+
+      <div class="asset-total">
+        <span class="asset-total-label">合計</span>
+        <span class="asset-total-amount">約 ¥4,000</span>
+      </div>
+    </div>
+
+    <!-- ② プロモ（後押し） -->
+    <div class="promo-section">
+      <div class="promo-banner">
+        <p class="promo-sub">1,000円を3ヶ月つみたてると</p>
+        <p class="promo-main">さらに500円分🪙もらえる</p>
+      </div>
+    </div>
+
+    <!-- ③ チャート（補足） -->
+    <div class="chart-section">
+      <span class="chart-label">ビットコイン価格推移（イメージ）</span>
+      <svg width="343" height="90" viewBox="0 0 343 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="80" x2="343" y2="80" stroke="#f0f0f0" stroke-width="1"/>
+        <line x1="0" y1="55" x2="343" y2="55" stroke="#f0f0f0" stroke-width="1" stroke-dasharray="4 3"/>
+        <line x1="0" y1="30" x2="343" y2="30" stroke="#f0f0f0" stroke-width="1" stroke-dasharray="4 3"/>
         <polyline
-          points="43,78 81,70 119,60 157,48 195,33 233,20"
-          stroke="#ff333f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"
+          points="0,72 57,65 114,58 171,48 228,34 285,20 343,10"
+          stroke="#ff333f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"
         />
-        <!-- Dots on line -->
-        <circle cx="43"  cy="78" r="3.5" fill="#fff" stroke="#ff333f" stroke-width="2"/>
-        <circle cx="81"  cy="70" r="3.5" fill="#fff" stroke="#ff333f" stroke-width="2"/>
-        <circle cx="119" cy="60" r="3.5" fill="#fff" stroke="#ff333f" stroke-width="2"/>
-        <circle cx="157" cy="48" r="3.5" fill="#fff" stroke="#ff333f" stroke-width="2"/>
-        <circle cx="195" cy="33" r="3.5" fill="#fff" stroke="#ff333f" stroke-width="2"/>
-        <circle cx="233" cy="20" r="5"   fill="#ff333f" stroke="#fff" stroke-width="2"/>
-        <!-- Up arrow at tip -->
-        <polyline points="226,27 233,18 240,27" stroke="#ff333f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path
+          d="M0,72 57,65 114,58 171,48 228,34 285,20 343,10 L343,80 L0,80 Z"
+          fill="url(#chartGrad)" opacity="0.15"
+        />
+        <defs>
+          <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ff333f"/>
+            <stop offset="100%" stop-color="#ff333f" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <circle cx="343" cy="10" r="4" fill="#ff333f" stroke="#fff" stroke-width="2"/>
       </svg>
     </div>
 
-    <!-- Content -->
-    <div class="content">
-
-      <!-- Speech bubble -->
-      <div class="speech-bubble">
-        <div class="bubble-box">
-          <p>手間なく、かしこく</p>
-        </div>
-        <div class="bubble-tip"></div>
-      </div>
-
-      <!-- Info card -->
-      <div class="info-card">
-        <div class="info-row">
-          <span class="info-label">保有ポイント</span>
-          <span class="info-value">P1,000</span>
-        </div>
-        <div class="info-warning">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <circle cx="7" cy="7" r="6.5" stroke="#ff333f"/>
-            <path d="M7 4v4" stroke="#ff333f" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="7" cy="10" r="0.75" fill="#ff333f"/>
-          </svg>
-          500ポイントが期限切れ間近（2026/03/31）
-        </div>
-        <div class="info-row" style="margin-top:4px;">
-          <span class="info-label">メルペイ残高</span>
-          <span class="info-value">¥3,000</span>
-        </div>
-      </div>
-
-      <!-- Promo banner -->
-      <div class="promo-wrap">
-        <div class="promo-banner">
-          <p class="promo-sub">1,000円を3ヶ月つみたてると</p>
-          <p class="promo-main">さらに500円分🪙もらえる</p>
-        </div>
-        <div class="promo-beak">
-          <div class="promo-beak-inner"></div>
-        </div>
-      </div>
-
-      <!-- Action button -->
-      <div class="action-btn-wrap">
-        <button class="action-btn">毎月1,000円からつみたててみる</button>
-      </div>
-
+    <!-- アクションボタン -->
+    <div class="action-section">
+      <button class="action-btn">毎月1,000円からつみたててみる</button>
     </div>
 
-    <!-- Bottom CTA -->
+    <!-- スキップ -->
     <div class="cta">
-      <div class="cta-buttons">
-        <button class="btn btn-fill">今はやめておく</button>
-      </div>
+      <button class="btn-skip">今はやめておく</button>
     </div>
 
     <!-- Home Indicator -->
