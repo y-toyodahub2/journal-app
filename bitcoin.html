@@ -100,15 +100,15 @@
     .illustration {
       display: flex;
       justify-content: center;
-      padding: 0;
+      padding: 8px 0;
       background: #fff;
-      height: 240px;
+      height: 140px;
       overflow: hidden;
       position: relative;
     }
     .illustration-circle {
-      width: 240px;
-      height: 240px;
+      width: 120px;
+      height: 120px;
       background: #f0f0f0;
       border-radius: 50%;
       overflow: hidden;
@@ -246,45 +246,23 @@
       border-top: 8px solid #006ed1;
     }
 
-    /* Checkbox row */
-    .checkbox-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 8px 16px;
-      min-height: 56px;
+    /* Action button */
+    .action-btn-wrap {
+      padding: 0 16px;
     }
-    .checkbox {
-      width: 20px;
-      height: 20px;
-      background: #006ed1;
-      border-radius: 4px;
+    .action-btn {
+      width: 100%;
+      min-height: 44px;
+      background: #ff333f;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
-    }
-    .checkbox svg {
-      stroke: #fff;
-      fill: none;
-      stroke-width: 2.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .checkbox-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .checkbox-label {
-      font-size: 15px;
-      font-weight: 600;
-      color: #333;
-      line-height: 1.4;
-    }
-    .checkbox-hint {
-      font-size: 12px;
-      color: #666;
+      cursor: pointer;
     }
 
     /* Bottom CTA */
@@ -441,17 +419,9 @@
         </div>
       </div>
 
-      <!-- Checkbox -->
-      <div class="checkbox-row">
-        <div class="checkbox">
-          <svg width="12" height="10" viewBox="0 0 12 10">
-            <polyline points="1.5,5 4.5,8 10.5,1.5"/>
-          </svg>
-        </div>
-        <div class="checkbox-text">
-          <span class="checkbox-label">毎月1,000円からつみたててみる</span>
-          <span class="checkbox-hint">金額・頻度・つみたて日の変更、解除はいつでもできます</span>
-        </div>
+      <!-- Action button -->
+      <div class="action-btn-wrap">
+        <button class="action-btn">毎月1,000円からつみたててみる</button>
       </div>
 
     </div>
@@ -459,7 +429,6 @@
     <!-- Bottom CTA -->
     <div class="cta">
       <div class="cta-buttons">
-        <button class="btn btn-outline">戻る</button>
         <button class="btn btn-fill">次へ</button>
       </div>
     </div>
