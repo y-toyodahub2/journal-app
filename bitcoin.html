@@ -10,81 +10,61 @@
        (Figma: PJ-MTU-仮 / node 16624:245024)
        ============================================= */
     :root {
-      /* Color: Foreground */
-      --foreground-basic-primary:   #333333;
-      --foreground-basic-secondary: #666666;
-      --foreground-basic-tertiary:  #ffffff;
+      --foreground-basic-primary:     #333333;
+      --foreground-basic-secondary:   #666666;
+      --foreground-basic-tertiary:    #ffffff;
       --foreground-attention-primary: #ff333f;
 
-      /* Color: Background */
       --background-basic-primary:   #f5f5f5;
       --background-basic-secondary: #eeeeee;
       --background-basic-tertiary:  #ffffff;
       --background-brand-primary:   #ff333f;
       --background-accent-primary:  #006ed1;
 
-      /* Color: Border */
-      --border-basic-primary:   #c7c7c7;
-      --border-brand-primary:   #ff333f;
+      --border-basic-primary: #c7c7c7;
+      --border-brand-primary: #ff333f;
 
-      /* Color: Grays */
-      --grays-white: #ffffff;
-      --grays-black: #000000;
-
-      /* Typeface */
       --typeface-ios: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
 
-      /* Font weight (iOS) */
       --fontweight-bold:    600;
       --fontweight-regular: 300;
 
-      /* Font size */
       --fontsize-large:  17px;
       --fontsize-medium: 15px;
       --fontsize-small:  14px;
       --fontsize-xsmall: 12px;
 
-      /* Line height */
       --lineheight-body:   1.4;
       --lineheight-button: 1.25;
 
-      /* Spacing (global) */
-      --spacing0:  0px;
       --spacing2:  2px;
       --spacing4:  4px;
       --spacing8:  8px;
       --spacing12: 12px;
       --spacing16: 16px;
       --spacing24: 24px;
-      --spacing32: 32px;
 
-      /* Border radius (global) */
       --radius-small:  4px;
       --radius-medium: 8px;
       --radius-large:  16px;
 
-      /* Border width */
       --border-extra-thin: 0.5px;
       --border-thin:       1px;
     }
 
-    /* =============================================
-       Base Reset
-       ============================================= */
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background: var(--background-basic-primary);
       display: flex;
       justify-content: center;
-      align-items: flex-start;
       min-height: 100vh;
       font-family: var(--typeface-ios);
       color: var(--foreground-basic-primary);
     }
 
     /* =============================================
-       Device Frame
+       Device
        ============================================= */
     .device {
       width: 375px;
@@ -95,7 +75,7 @@
     }
 
     /* =============================================
-       Background App (奥の画面)
+       Background App
        ============================================= */
     .bg-app {
       position: absolute;
@@ -156,13 +136,13 @@
       background: var(--background-basic-secondary);
       flex-shrink: 0;
     }
-    .bg-card-lines { display: flex; flex-direction: column; gap: var(--spacing4); }
+    .bg-lines { display: flex; flex-direction: column; gap: var(--spacing4); }
     .bg-line-a { width: 140px; height: 11px; background: var(--background-basic-secondary); border-radius: var(--radius-small); }
-    .bg-line-b { width:  90px; height:  9px; background: var(--background-basic-secondary); border-radius: var(--radius-small); opacity: 0.7; }
-    .bg-line-c { width:  60px; height: 11px; background: var(--background-basic-secondary); border-radius: var(--radius-small); margin-top: var(--spacing4); }
+    .bg-line-b { width: 90px;  height: 9px;  background: var(--background-basic-secondary); border-radius: var(--radius-small); opacity: 0.7; }
+    .bg-line-c { width: 60px;  height: 11px; background: var(--background-basic-secondary); border-radius: var(--radius-small); margin-top: var(--spacing4); }
 
     /* =============================================
-       Scrim Overlay
+       Scrim
        ============================================= */
     .overlay {
       position: absolute;
@@ -181,8 +161,6 @@
       display: flex;
       flex-direction: column;
     }
-
-    /* ハンドル */
     .sheet-handle {
       display: flex;
       justify-content: center;
@@ -193,8 +171,6 @@
       background: var(--border-basic-primary);
       border-radius: 99px;
     }
-
-    /* ナビ */
     .sheet-nav {
       height: 44px;
       display: flex;
@@ -217,19 +193,13 @@
       color: var(--foreground-basic-primary);
       white-space: nowrap;
     }
-
-    /* ページングドット */
     .paging {
       display: flex;
       justify-content: center;
       gap: var(--spacing8);
       padding: var(--spacing8) var(--spacing16);
     }
-    .dot {
-      width: 4px; height: 4px;
-      border-radius: 99px;
-      background: var(--border-basic-primary);
-    }
+    .dot { width: 4px; height: 4px; border-radius: 99px; background: var(--border-basic-primary); }
     .dot.active { background: var(--foreground-attention-primary); }
 
     /* =============================================
@@ -242,32 +212,38 @@
       gap: var(--spacing12);
     }
 
-    /* チャート + タイトル */
-    .chart-section { display: flex; flex-direction: column; gap: var(--spacing8); }
-    .chart-title {
-      font-size: var(--fontsize-medium);
+    /* ① 期限切れアテンションバー */
+    .attention-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing8);
+      background: #fff5f5;
+      border: var(--border-thin) solid #ffb3b3;
+      border-radius: var(--radius-medium);
+      padding: var(--spacing8) var(--spacing12);
+    }
+    .attention-bar-text {
+      font-size: var(--fontsize-xsmall);
       font-weight: var(--fontweight-bold);
       line-height: var(--lineheight-body);
-      color: var(--foreground-basic-primary);
+      color: var(--foreground-attention-primary);
     }
 
-    /* 資産ヒーロー */
-    .asset-hero {
-      background: #fff8f8;
-      border: var(--border-thin) solid #ffd0d2;
+    /* ② 資産カード */
+    .asset-card {
+      border: var(--border-thin) solid var(--border-basic-primary);
       border-radius: var(--radius-medium);
-      padding: var(--spacing12) var(--spacing16);
+      overflow: hidden;
+    }
+    .asset-row {
       display: flex;
-      flex-direction: column;
-      gap: var(--spacing8);
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--spacing12) var(--spacing16);
     }
-    .asset-hero-label {
-      font-size: var(--fontsize-xsmall);
-      font-weight: var(--fontweight-regular);
-      line-height: var(--lineheight-body);
-      color: var(--foreground-basic-secondary);
+    .asset-row + .asset-row {
+      border-top: var(--border-extra-thin) solid var(--border-basic-primary);
     }
-    .asset-row { display: flex; flex-direction: column; gap: var(--spacing2); }
     .asset-name {
       font-size: var(--fontsize-xsmall);
       font-weight: var(--fontweight-regular);
@@ -275,45 +251,16 @@
       color: var(--foreground-basic-secondary);
     }
     .asset-amount {
-      font-size: 26px;
+      font-size: 22px;
       font-weight: var(--fontweight-bold);
       line-height: 1.15;
       color: var(--foreground-basic-primary);
       letter-spacing: -0.5px;
     }
-    .asset-unit { font-size: var(--fontsize-medium); }
-    .asset-warning {
-      display: flex; align-items: center; gap: var(--spacing4);
-      font-size: var(--fontsize-xsmall);
-      font-weight: var(--fontweight-regular);
-      line-height: var(--lineheight-body);
-      color: var(--foreground-attention-primary);
-      margin-top: var(--spacing2);
-    }
-    .asset-divider {
-      height: var(--border-extra-thin);
-      background: #ffd0d2;
-    }
-    .asset-total {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .asset-total-label {
-      font-size: var(--fontsize-xsmall);
-      font-weight: var(--fontweight-regular);
-      line-height: var(--lineheight-body);
-      color: var(--foreground-basic-secondary);
-    }
-    .asset-total-amount {
-      font-size: var(--fontsize-medium);
-      font-weight: var(--fontweight-bold);
-      line-height: var(--lineheight-body);
-      color: var(--foreground-basic-primary);
-    }
+    .asset-unit { font-size: var(--fontsize-small); }
 
-    /* ボタン + 後押しバナー */
-    .action-section { display: flex; flex-direction: column; }
+    /* ③ ベネフィット + プライマリCTA */
+    .cta-group { display: flex; flex-direction: column; }
     .nudge-banner {
       background: var(--background-accent-primary);
       border-radius: var(--radius-medium) var(--radius-medium) 0 0;
@@ -350,28 +297,40 @@
       cursor: pointer;
     }
 
-    /* スキップボタン */
+    /* ④ スキップ：テキストリンク */
     .btn-skip {
       width: 100%;
-      min-height: 44px;
-      background: var(--background-basic-tertiary);
-      border: var(--border-thin) solid var(--border-basic-primary);
-      border-radius: var(--radius-medium);
+      padding: var(--spacing8) 0;
+      background: transparent;
+      border: none;
       font-family: var(--typeface-ios);
       font-size: var(--fontsize-medium);
       font-weight: var(--fontweight-regular);
       line-height: var(--lineheight-button);
       color: var(--foreground-basic-secondary);
-      display: flex; align-items: center; justify-content: center;
+      text-align: center;
       cursor: pointer;
     }
 
-    /* ホームインジケーター */
+    /* ⑤ チャート（補足） */
+    .chart-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing4);
+      padding-bottom: var(--spacing4);
+    }
+    .chart-label {
+      font-size: var(--fontsize-xsmall);
+      font-weight: var(--fontweight-regular);
+      color: var(--foreground-basic-secondary);
+    }
+
+    /* Home indicator */
     .home-indicator {
       height: 34px;
       display: flex; align-items: flex-end; justify-content: center;
       padding-bottom: var(--spacing8);
-      margin-top: var(--spacing12);
+      margin-top: var(--spacing8);
     }
     .home-bar {
       width: 134px; height: 5px;
@@ -407,33 +366,19 @@
           </svg>
         </div>
       </div>
-      <div class="bg-nav">
-        <span class="bg-nav-title">ホーム</span>
-      </div>
+      <div class="bg-nav"><span class="bg-nav-title">ホーム</span></div>
       <div class="bg-content">
         <div class="bg-card">
           <div class="bg-thumb"></div>
-          <div class="bg-card-lines">
-            <div class="bg-line-a"></div>
-            <div class="bg-line-b"></div>
-            <div class="bg-line-c"></div>
-          </div>
+          <div class="bg-lines"><div class="bg-line-a"></div><div class="bg-line-b"></div><div class="bg-line-c"></div></div>
         </div>
         <div class="bg-card">
           <div class="bg-thumb"></div>
-          <div class="bg-card-lines">
-            <div class="bg-line-a"></div>
-            <div class="bg-line-b"></div>
-            <div class="bg-line-c"></div>
-          </div>
+          <div class="bg-lines"><div class="bg-line-a"></div><div class="bg-line-b"></div><div class="bg-line-c"></div></div>
         </div>
         <div class="bg-card">
           <div class="bg-thumb"></div>
-          <div class="bg-card-lines">
-            <div class="bg-line-a"></div>
-            <div class="bg-line-b"></div>
-            <div class="bg-line-c"></div>
-          </div>
+          <div class="bg-lines"><div class="bg-line-a"></div><div class="bg-line-b"></div><div class="bg-line-c"></div></div>
         </div>
       </div>
     </div>
@@ -443,9 +388,7 @@
 
     <!-- ボトムシート -->
     <div class="sheet">
-      <div class="sheet-handle">
-        <div class="sheet-handle-bar"></div>
-      </div>
+      <div class="sheet-handle"><div class="sheet-handle-bar"></div></div>
 
       <div class="sheet-nav">
         <div class="sheet-nav-close">
@@ -458,77 +401,64 @@
       </div>
 
       <div class="paging">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
         <div class="dot active"></div>
       </div>
 
       <div class="sheet-body">
 
-        <!-- チャート -->
-        <div class="chart-section">
-          <span class="chart-title">コツコツつみたて</span>
-          <svg width="343" height="80" viewBox="0 0 343 80" fill="none">
-            <line x1="0" y1="72" x2="343" y2="72" stroke="#eeeeee" stroke-width="1"/>
-            <line x1="0" y1="48" x2="343" y2="48" stroke="#eeeeee" stroke-width="0.5" stroke-dasharray="4 3"/>
-            <line x1="0" y1="24" x2="343" y2="24" stroke="#eeeeee" stroke-width="0.5" stroke-dasharray="4 3"/>
-            <path d="M0,66 57,58 114,50 171,40 228,26 285,14 343,6"
-              stroke="#ff333f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-            <path d="M0,66 57,58 114,50 171,40 228,26 285,14 343,6 L343,72 L0,72 Z"
-              fill="#ff333f" opacity="0.08"/>
-            <circle cx="343" cy="6" r="5" fill="#ff333f" stroke="white" stroke-width="2"/>
+        <!-- ① 期限切れアテンションバー -->
+        <div class="attention-bar">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" flex-shrink="0">
+            <circle cx="7" cy="7" r="6.5" stroke="#ff333f"/>
+            <path d="M7 4v4" stroke="#ff333f" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="7" cy="10" r="0.75" fill="#ff333f"/>
           </svg>
+          <span class="attention-bar-text">500ポイントが2026/03/31に期限切れになります</span>
         </div>
 
-        <!-- 資産ヒーロー -->
-        <div class="asset-hero">
-          <span class="asset-hero-label">つみたてに使える資産</span>
-
+        <!-- ② 資産カード -->
+        <div class="asset-card">
           <div class="asset-row">
             <span class="asset-name">保有ポイント</span>
             <span class="asset-amount"><span class="asset-unit">P</span>1,000</span>
-            <div class="asset-warning">
-              <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-                <circle cx="7" cy="7" r="6.5" stroke="#ff333f"/>
-                <path d="M7 4v4" stroke="#ff333f" stroke-width="1.5" stroke-linecap="round"/>
-                <circle cx="7" cy="10" r="0.75" fill="#ff333f"/>
-              </svg>
-              500Pが期限切れ間近（2026/03/31）
-            </div>
           </div>
-
-          <div class="asset-divider"></div>
-
           <div class="asset-row">
             <span class="asset-name">売上金</span>
             <span class="asset-amount"><span class="asset-unit">¥</span>3,000</span>
           </div>
-
-          <div class="asset-divider"></div>
-
-          <div class="asset-total">
-            <span class="asset-total-label">合計</span>
-            <span class="asset-total-amount">約 ¥4,000</span>
-          </div>
         </div>
 
-        <!-- プライマリボタン + 後押しバナー -->
-        <div class="action-section">
+        <!-- ③ ベネフィット + プライマリCTA -->
+        <div class="cta-group">
           <div class="nudge-banner">
             <span class="nudge-text">1,000円を3ヶ月つみたてると</span>
             <span class="nudge-highlight">さらに500円分🪙もらえる</span>
           </div>
-          <button class="action-btn">毎月1,000円からつみたててみる</button>
+          <button class="action-btn">まずつみたててみる</button>
         </div>
 
+        <!-- ④ スキップ：テキストリンク -->
         <button class="btn-skip">今はやめておく</button>
 
+        <!-- ⑤ チャート（補足） -->
+        <div class="chart-section">
+          <span class="chart-label">ビットコインは長期で右肩上がりの傾向があります</span>
+          <svg width="343" height="64" viewBox="0 0 343 64" fill="none">
+            <line x1="0" y1="57" x2="343" y2="57" stroke="#eeeeee" stroke-width="1"/>
+            <line x1="0" y1="36" x2="343" y2="36" stroke="#eeeeee" stroke-width="0.5" stroke-dasharray="4 3"/>
+            <line x1="0" y1="16" x2="343" y2="16" stroke="#eeeeee" stroke-width="0.5" stroke-dasharray="4 3"/>
+            <path d="M0,52 57,46 114,40 171,30 228,19 285,10 343,4"
+              stroke="#ff333f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M0,52 57,46 114,40 171,30 228,19 285,10 343,4 L343,57 L0,57 Z"
+              fill="#ff333f" opacity="0.07"/>
+            <circle cx="343" cy="4" r="4" fill="#ff333f" stroke="white" stroke-width="2"/>
+          </svg>
+        </div>
+
       </div>
 
-      <div class="home-indicator">
-        <div class="home-bar"></div>
-      </div>
+      <div class="home-indicator"><div class="home-bar"></div></div>
     </div>
 
   </div>
