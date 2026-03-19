@@ -182,13 +182,25 @@
     .promo-main { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.5; }
 
     /* チャート */
-    .chart-section { display: flex; flex-direction: column; gap: 4px; }
-    .chart-label { font-size: 11px; color: #bbb; text-align: right; }
+    .chart-section { display: flex; flex-direction: column; gap: 8px; }
+    .chart-title { font-size: 16px; font-weight: 700; color: #333; }
 
-    /* アクションボタン */
+    /* アクションボタン＋後押し */
+    .action-section { display: flex; flex-direction: column; gap: 0; }
+    .nudge-banner {
+      background: #006ed1;
+      border-radius: 8px 8px 0 0;
+      padding: 8px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+    }
+    .nudge-text    { font-size: 11px; color: rgba(255,255,255,0.85); }
+    .nudge-highlight { font-size: 13px; font-weight: 700; color: #fff; }
     .action-btn {
       width: 100%; min-height: 50px;
-      background: #ff333f; border: none; border-radius: 8px;
+      background: #ff333f; border: none; border-radius: 0 0 8px 8px;
       font-size: 16px; font-weight: 700; color: #fff;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer;
@@ -299,6 +311,19 @@
 
       <div class="sheet-body">
 
+        <!-- チャート（最上部） -->
+        <div class="chart-section">
+          <span class="chart-title">コツコツつみたて</span>
+          <svg width="343" height="80" viewBox="0 0 343 80" fill="none">
+            <line x1="0" y1="72" x2="343" y2="72" stroke="#f0f0f0" stroke-width="1"/>
+            <line x1="0" y1="48" x2="343" y2="48" stroke="#f0f0f0" stroke-width="1" stroke-dasharray="4 3"/>
+            <line x1="0" y1="24" x2="343" y2="24" stroke="#f0f0f0" stroke-width="1" stroke-dasharray="4 3"/>
+            <path d="M0,66 57,58 114,50 171,40 228,26 285,14 343,6" stroke="#ff333f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M0,66 57,58 114,50 171,40 228,26 285,14 343,6 L343,72 L0,72 Z" fill="#ff333f" opacity="0.08"/>
+            <circle cx="343" cy="6" r="5" fill="#ff333f" stroke="#fff" stroke-width="2"/>
+          </svg>
+        </div>
+
         <!-- 資産ヒーロー -->
         <div class="asset-hero">
           <span class="asset-hero-label">つみたてに使える資産</span>
@@ -326,27 +351,15 @@
           </div>
         </div>
 
-        <!-- プロモ -->
-        <div class="promo-banner">
-          <p class="promo-sub">1,000円を3ヶ月つみたてると</p>
-          <p class="promo-main">さらに500円分🪙もらえる</p>
+        <!-- プライマリボタン＋後押しメッセージ -->
+        <div class="action-section">
+          <div class="nudge-banner">
+            <span class="nudge-text">1,000円を3ヶ月つみたてると</span>
+            <span class="nudge-highlight">さらに500円分🪙もらえる</span>
+          </div>
+          <button class="action-btn">毎月1,000円からつみたててみる</button>
         </div>
 
-        <!-- チャート -->
-        <div class="chart-section">
-          <span class="chart-label">ビットコイン価格推移（イメージ）</span>
-          <svg width="343" height="72" viewBox="0 0 343 72" fill="none">
-            <line x1="0" y1="65" x2="343" y2="65" stroke="#f0f0f0" stroke-width="1"/>
-            <line x1="0" y1="42" x2="343" y2="42" stroke="#f0f0f0" stroke-width="1" stroke-dasharray="4 3"/>
-            <line x1="0" y1="20" x2="343" y2="20" stroke="#f0f0f0" stroke-width="1" stroke-dasharray="4 3"/>
-            <path d="M0,60 57,52 114,46 171,36 228,24 285,14 343,6" stroke="#ff333f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-            <path d="M0,60 57,52 114,46 171,36 228,24 285,14 343,6 L343,65 L0,65 Z" fill="#ff333f" opacity="0.08"/>
-            <circle cx="343" cy="6" r="4" fill="#ff333f" stroke="#fff" stroke-width="2"/>
-          </svg>
-        </div>
-
-        <!-- ボタン -->
-        <button class="action-btn">毎月1,000円からつみたててみる</button>
         <button class="btn-skip">今はやめておく</button>
 
       </div>
