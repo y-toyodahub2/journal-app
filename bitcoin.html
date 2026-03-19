@@ -5,123 +5,204 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ビットコインをはじめよう</title>
   <style>
+    /* =============================================
+       DS4.0 Design Tokens
+       (Figma: PJ-MTU-仮 / node 16624:245024)
+       ============================================= */
+    :root {
+      /* Color: Foreground */
+      --foreground-basic-primary:   #333333;
+      --foreground-basic-secondary: #666666;
+      --foreground-basic-tertiary:  #ffffff;
+      --foreground-attention-primary: #ff333f;
+
+      /* Color: Background */
+      --background-basic-primary:   #f5f5f5;
+      --background-basic-secondary: #eeeeee;
+      --background-basic-tertiary:  #ffffff;
+      --background-brand-primary:   #ff333f;
+      --background-accent-primary:  #006ed1;
+
+      /* Color: Border */
+      --border-basic-primary:   #c7c7c7;
+      --border-brand-primary:   #ff333f;
+
+      /* Color: Grays */
+      --grays-white: #ffffff;
+      --grays-black: #000000;
+
+      /* Typeface */
+      --typeface-ios: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
+
+      /* Font weight (iOS) */
+      --fontweight-bold:    600;
+      --fontweight-regular: 300;
+
+      /* Font size */
+      --fontsize-large:  17px;
+      --fontsize-medium: 15px;
+      --fontsize-small:  14px;
+      --fontsize-xsmall: 12px;
+
+      /* Line height */
+      --lineheight-body:   1.4;
+      --lineheight-button: 1.25;
+
+      /* Spacing (global) */
+      --spacing0:  0px;
+      --spacing2:  2px;
+      --spacing4:  4px;
+      --spacing8:  8px;
+      --spacing12: 12px;
+      --spacing16: 16px;
+      --spacing24: 24px;
+      --spacing32: 32px;
+
+      /* Border radius (global) */
+      --radius-small:  4px;
+      --radius-medium: 8px;
+      --radius-large:  16px;
+
+      /* Border width */
+      --border-extra-thin: 0.5px;
+      --border-thin:       1px;
+    }
+
+    /* =============================================
+       Base Reset
+       ============================================= */
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #f0f0f0;
+      background: var(--background-basic-primary);
       display: flex;
       justify-content: center;
       align-items: flex-start;
       min-height: 100vh;
-      font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif;
+      font-family: var(--typeface-ios);
+      color: var(--foreground-basic-primary);
     }
 
-    /* 端末フレーム */
+    /* =============================================
+       Device Frame
+       ============================================= */
     .device {
       width: 375px;
       min-height: 812px;
       position: relative;
       overflow: hidden;
-      background: #fff;
+      background: var(--background-basic-tertiary);
     }
 
-    /* ── 背景: メインアプリ画面 ── */
+    /* =============================================
+       Background App (奥の画面)
+       ============================================= */
     .bg-app {
       position: absolute;
       inset: 0;
-      background: #f5f5f5;
+      background: var(--background-basic-primary);
       display: flex;
       flex-direction: column;
     }
     .bg-status {
       height: 54px;
-      background: #fff;
+      background: var(--background-basic-tertiary);
       display: flex;
       align-items: flex-end;
-      padding: 0 16px 8px;
+      padding: 0 var(--spacing16) var(--spacing8);
       justify-content: space-between;
       flex-shrink: 0;
     }
-    .bg-status-time { font-size: 17px; font-weight: 600; color: #333; }
-    .bg-status-icons { display: flex; align-items: center; gap: 6px; }
+    .bg-status-time {
+      font-size: var(--fontsize-large);
+      font-weight: var(--fontweight-bold);
+      color: var(--foreground-basic-primary);
+    }
+    .bg-status-icons { display: flex; align-items: center; gap: var(--spacing8); }
     .bg-nav {
       height: 44px;
-      background: #fff;
-      border-bottom: 0.5px solid #e0e0e0;
+      background: var(--background-basic-tertiary);
+      border-bottom: var(--border-extra-thin) solid var(--border-basic-primary);
       display: flex;
       align-items: center;
-      padding: 0 16px;
-      gap: 12px;
+      padding: 0 var(--spacing16);
       flex-shrink: 0;
     }
-    .bg-nav-title { font-size: 17px; font-weight: 700; color: #333; }
+    .bg-nav-title {
+      font-size: var(--fontsize-large);
+      font-weight: var(--fontweight-bold);
+      color: var(--foreground-basic-primary);
+    }
     .bg-content {
       flex: 1;
-      padding: 16px;
+      padding: var(--spacing16);
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: var(--spacing12);
       overflow: hidden;
     }
     .bg-card {
-      background: #fff;
-      border-radius: 8px;
-      padding: 12px;
+      background: var(--background-basic-tertiary);
+      border-radius: var(--radius-medium);
+      padding: var(--spacing12);
       display: flex;
-      gap: 12px;
+      gap: var(--spacing12);
       align-items: center;
-      opacity: 0.6;
+      opacity: 0.55;
     }
     .bg-thumb {
       width: 60px; height: 60px;
-      border-radius: 6px;
+      border-radius: var(--radius-medium);
+      background: var(--background-basic-secondary);
       flex-shrink: 0;
     }
-    .bg-card-text { display: flex; flex-direction: column; gap: 4px; }
-    .bg-card-title { width: 140px; height: 12px; background: #e0e0e0; border-radius: 3px; }
-    .bg-card-sub   { width: 90px;  height: 10px; background: #e8e8e8; border-radius: 3px; }
-    .bg-card-price { width: 60px;  height: 12px; background: #e0e0e0; border-radius: 3px; }
+    .bg-card-lines { display: flex; flex-direction: column; gap: var(--spacing4); }
+    .bg-line-a { width: 140px; height: 11px; background: var(--background-basic-secondary); border-radius: var(--radius-small); }
+    .bg-line-b { width:  90px; height:  9px; background: var(--background-basic-secondary); border-radius: var(--radius-small); opacity: 0.7; }
+    .bg-line-c { width:  60px; height: 11px; background: var(--background-basic-secondary); border-radius: var(--radius-small); margin-top: var(--spacing4); }
 
-    /* 暗転オーバーレイ */
+    /* =============================================
+       Scrim Overlay
+       ============================================= */
     .overlay {
       position: absolute;
       inset: 0;
       background: rgba(0, 0, 0, 0.45);
     }
 
-    /* ── モーダルシート ── */
+    /* =============================================
+       Bottom Sheet
+       ============================================= */
     .sheet {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #fff;
-      border-radius: 16px 16px 0 0;
+      bottom: 0; left: 0; right: 0;
+      background: var(--background-basic-tertiary);
+      border-radius: var(--radius-large) var(--radius-large) 0 0;
       display: flex;
       flex-direction: column;
-      padding-bottom: env(safe-area-inset-bottom, 0);
     }
 
-    /* シートハンドル */
+    /* ハンドル */
     .sheet-handle {
       display: flex;
       justify-content: center;
-      padding: 10px 0 4px;
+      padding: var(--spacing8) 0 var(--spacing4);
     }
     .sheet-handle-bar {
       width: 36px; height: 4px;
-      background: #d9d9d9;
+      background: var(--border-basic-primary);
       border-radius: 99px;
     }
 
-    /* シートナビ */
+    /* ナビ */
     .sheet-nav {
       height: 44px;
       display: flex;
       align-items: center;
       position: relative;
-      border-bottom: 0.5px solid #e8e8e8;
-      padding: 0 4px;
+      border-bottom: var(--border-extra-thin) solid var(--border-basic-primary);
+      padding: 0 var(--spacing4);
+      flex-shrink: 0;
     }
     .sheet-nav-close {
       width: 44px; height: 44px;
@@ -130,104 +211,179 @@
     }
     .sheet-nav-title {
       position: absolute; left: 50%; transform: translateX(-50%);
-      font-size: 17px; font-weight: 600; color: #333; white-space: nowrap;
+      font-size: var(--fontsize-large);
+      font-weight: var(--fontweight-bold);
+      line-height: var(--lineheight-body);
+      color: var(--foreground-basic-primary);
+      white-space: nowrap;
     }
 
     /* ページングドット */
     .paging {
-      display: flex; justify-content: center; gap: 8px;
-      padding: 10px 0;
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing8);
+      padding: var(--spacing8) var(--spacing16);
     }
-    .dot { width: 4px; height: 4px; border-radius: 99px; background: #d9d9d9; }
-    .dot.active { background: #ff333f; }
+    .dot {
+      width: 4px; height: 4px;
+      border-radius: 99px;
+      background: var(--border-basic-primary);
+    }
+    .dot.active { background: var(--foreground-attention-primary); }
 
-    /* シート本文 */
+    /* =============================================
+       Sheet Body
+       ============================================= */
     .sheet-body {
-      padding: 4px 16px 0;
+      padding: var(--spacing4) var(--spacing16) 0;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: var(--spacing12);
+    }
+
+    /* チャート + タイトル */
+    .chart-section { display: flex; flex-direction: column; gap: var(--spacing8); }
+    .chart-title {
+      font-size: var(--fontsize-medium);
+      font-weight: var(--fontweight-bold);
+      line-height: var(--lineheight-body);
+      color: var(--foreground-basic-primary);
     }
 
     /* 資産ヒーロー */
     .asset-hero {
       background: #fff8f8;
-      border: 1.5px solid #ffd0d2;
-      border-radius: 12px;
-      padding: 14px 16px;
+      border: var(--border-thin) solid #ffd0d2;
+      border-radius: var(--radius-medium);
+      padding: var(--spacing12) var(--spacing16);
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: var(--spacing8);
     }
-    .asset-hero-label { font-size: 11px; color: #aaa; }
-    .asset-row { display: flex; flex-direction: column; gap: 3px; }
-    .asset-name { font-size: 13px; color: #555; }
-    .asset-amount { font-size: 26px; font-weight: 700; color: #333; line-height: 1.15; letter-spacing: -0.5px; }
-    .asset-unit { font-size: 15px; font-weight: 600; }
+    .asset-hero-label {
+      font-size: var(--fontsize-xsmall);
+      font-weight: var(--fontweight-regular);
+      line-height: var(--lineheight-body);
+      color: var(--foreground-basic-secondary);
+    }
+    .asset-row { display: flex; flex-direction: column; gap: var(--spacing2); }
+    .asset-name {
+      font-size: var(--fontsize-xsmall);
+      font-weight: var(--fontweight-regular);
+      line-height: var(--lineheight-body);
+      color: var(--foreground-basic-secondary);
+    }
+    .asset-amount {
+      font-size: 26px;
+      font-weight: var(--fontweight-bold);
+      line-height: 1.15;
+      color: var(--foreground-basic-primary);
+      letter-spacing: -0.5px;
+    }
+    .asset-unit { font-size: var(--fontsize-medium); }
     .asset-warning {
-      display: flex; align-items: center; gap: 4px;
-      font-size: 11px; color: #ff333f; margin-top: 2px;
+      display: flex; align-items: center; gap: var(--spacing4);
+      font-size: var(--fontsize-xsmall);
+      font-weight: var(--fontweight-regular);
+      line-height: var(--lineheight-body);
+      color: var(--foreground-attention-primary);
+      margin-top: var(--spacing2);
     }
-    .asset-divider { height: 0.5px; background: #ffd0d2; }
-    .asset-total { display: flex; justify-content: space-between; align-items: center; }
-    .asset-total-label { font-size: 13px; color: #555; }
-    .asset-total-amount { font-size: 18px; font-weight: 700; color: #333; }
-
-    /* プロモ */
-    .promo-banner {
-      background: #006ed1; border-radius: 8px;
-      padding: 10px 16px; text-align: center;
+    .asset-divider {
+      height: var(--border-extra-thin);
+      background: #ffd0d2;
     }
-    .promo-sub  { font-size: 12px; color: #fff; line-height: 1.5; }
-    .promo-main { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.5; }
+    .asset-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .asset-total-label {
+      font-size: var(--fontsize-xsmall);
+      font-weight: var(--fontweight-regular);
+      line-height: var(--lineheight-body);
+      color: var(--foreground-basic-secondary);
+    }
+    .asset-total-amount {
+      font-size: var(--fontsize-medium);
+      font-weight: var(--fontweight-bold);
+      line-height: var(--lineheight-body);
+      color: var(--foreground-basic-primary);
+    }
 
-    /* チャート */
-    .chart-section { display: flex; flex-direction: column; gap: 8px; }
-    .chart-title { font-size: 16px; font-weight: 700; color: #333; }
-
-    /* アクションボタン＋後押し */
-    .action-section { display: flex; flex-direction: column; gap: 0; }
+    /* ボタン + 後押しバナー */
+    .action-section { display: flex; flex-direction: column; }
     .nudge-banner {
-      background: #006ed1;
-      border-radius: 8px 8px 0 0;
-      padding: 8px 16px;
+      background: var(--background-accent-primary);
+      border-radius: var(--radius-medium) var(--radius-medium) 0 0;
+      padding: var(--spacing8) var(--spacing16);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1px;
+      gap: 2px;
     }
-    .nudge-text    { font-size: 11px; color: rgba(255,255,255,0.85); }
-    .nudge-highlight { font-size: 13px; font-weight: 700; color: #fff; }
+    .nudge-text {
+      font-size: var(--fontsize-xsmall);
+      font-weight: var(--fontweight-regular);
+      line-height: var(--lineheight-body);
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .nudge-highlight {
+      font-size: var(--fontsize-small);
+      font-weight: var(--fontweight-bold);
+      line-height: var(--lineheight-body);
+      color: var(--foreground-basic-tertiary);
+    }
     .action-btn {
-      width: 100%; min-height: 50px;
-      background: #ff333f; border: none; border-radius: 0 0 8px 8px;
-      font-size: 16px; font-weight: 700; color: #fff;
+      width: 100%;
+      min-height: 44px;
+      background: var(--background-brand-primary);
+      border: none;
+      border-radius: 0 0 var(--radius-medium) var(--radius-medium);
+      font-family: var(--typeface-ios);
+      font-size: var(--fontsize-medium);
+      font-weight: var(--fontweight-bold);
+      line-height: var(--lineheight-button);
+      color: var(--foreground-basic-tertiary);
       display: flex; align-items: center; justify-content: center;
       cursor: pointer;
     }
 
-    /* スキップ */
+    /* スキップボタン */
     .btn-skip {
-      width: 100%; min-height: 44px;
-      background: #fff; border: 1px solid #c7c7c7; border-radius: 8px;
-      font-size: 15px; font-weight: 500; color: #666;
+      width: 100%;
+      min-height: 44px;
+      background: var(--background-basic-tertiary);
+      border: var(--border-thin) solid var(--border-basic-primary);
+      border-radius: var(--radius-medium);
+      font-family: var(--typeface-ios);
+      font-size: var(--fontsize-medium);
+      font-weight: var(--fontweight-regular);
+      line-height: var(--lineheight-button);
+      color: var(--foreground-basic-secondary);
       display: flex; align-items: center; justify-content: center;
-      cursor: pointer; margin-top: 8px;
+      cursor: pointer;
     }
 
     /* ホームインジケーター */
     .home-indicator {
-      height: 34px; display: flex;
-      align-items: flex-end; justify-content: center; padding-bottom: 8px;
-      margin-top: 12px;
+      height: 34px;
+      display: flex; align-items: flex-end; justify-content: center;
+      padding-bottom: var(--spacing8);
+      margin-top: var(--spacing12);
     }
-    .home-bar { width: 134px; height: 5px; background: #333; border-radius: 100px; }
+    .home-bar {
+      width: 134px; height: 5px;
+      background: var(--foreground-basic-primary);
+      border-radius: 100px;
+    }
   </style>
 </head>
 <body>
   <div class="device">
 
-    <!-- 背景: メインアプリ画面 -->
+    <!-- 背景アプリ -->
     <div class="bg-app">
       <div class="bg-status">
         <span class="bg-status-time">9:41</span>
@@ -256,38 +412,37 @@
       </div>
       <div class="bg-content">
         <div class="bg-card">
-          <div class="bg-thumb" style="background:#e8e8e8;"></div>
-          <div class="bg-card-text">
-            <div class="bg-card-title"></div>
-            <div class="bg-card-sub"></div>
-            <div class="bg-card-price"></div>
+          <div class="bg-thumb"></div>
+          <div class="bg-card-lines">
+            <div class="bg-line-a"></div>
+            <div class="bg-line-b"></div>
+            <div class="bg-line-c"></div>
           </div>
         </div>
         <div class="bg-card">
-          <div class="bg-thumb" style="background:#e0e0e0;"></div>
-          <div class="bg-card-text">
-            <div class="bg-card-title"></div>
-            <div class="bg-card-sub"></div>
-            <div class="bg-card-price"></div>
+          <div class="bg-thumb"></div>
+          <div class="bg-card-lines">
+            <div class="bg-line-a"></div>
+            <div class="bg-line-b"></div>
+            <div class="bg-line-c"></div>
           </div>
         </div>
         <div class="bg-card">
-          <div class="bg-thumb" style="background:#e8e8e8;"></div>
-          <div class="bg-card-text">
-            <div class="bg-card-title"></div>
-            <div class="bg-card-sub"></div>
-            <div class="bg-card-price"></div>
+          <div class="bg-thumb"></div>
+          <div class="bg-card-lines">
+            <div class="bg-line-a"></div>
+            <div class="bg-line-b"></div>
+            <div class="bg-line-c"></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 暗転オーバーレイ -->
+    <!-- スクリム -->
     <div class="overlay"></div>
 
-    <!-- モーダルシート -->
+    <!-- ボトムシート -->
     <div class="sheet">
-
       <div class="sheet-handle">
         <div class="sheet-handle-bar"></div>
       </div>
@@ -311,22 +466,25 @@
 
       <div class="sheet-body">
 
-        <!-- チャート（最上部） -->
+        <!-- チャート -->
         <div class="chart-section">
           <span class="chart-title">コツコツつみたて</span>
           <svg width="343" height="80" viewBox="0 0 343 80" fill="none">
-            <line x1="0" y1="72" x2="343" y2="72" stroke="#f0f0f0" stroke-width="1"/>
-            <line x1="0" y1="48" x2="343" y2="48" stroke="#f0f0f0" stroke-width="1" stroke-dasharray="4 3"/>
-            <line x1="0" y1="24" x2="343" y2="24" stroke="#f0f0f0" stroke-width="1" stroke-dasharray="4 3"/>
-            <path d="M0,66 57,58 114,50 171,40 228,26 285,14 343,6" stroke="#ff333f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-            <path d="M0,66 57,58 114,50 171,40 228,26 285,14 343,6 L343,72 L0,72 Z" fill="#ff333f" opacity="0.08"/>
-            <circle cx="343" cy="6" r="5" fill="#ff333f" stroke="#fff" stroke-width="2"/>
+            <line x1="0" y1="72" x2="343" y2="72" stroke="#eeeeee" stroke-width="1"/>
+            <line x1="0" y1="48" x2="343" y2="48" stroke="#eeeeee" stroke-width="0.5" stroke-dasharray="4 3"/>
+            <line x1="0" y1="24" x2="343" y2="24" stroke="#eeeeee" stroke-width="0.5" stroke-dasharray="4 3"/>
+            <path d="M0,66 57,58 114,50 171,40 228,26 285,14 343,6"
+              stroke="#ff333f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M0,66 57,58 114,50 171,40 228,26 285,14 343,6 L343,72 L0,72 Z"
+              fill="#ff333f" opacity="0.08"/>
+            <circle cx="343" cy="6" r="5" fill="#ff333f" stroke="white" stroke-width="2"/>
           </svg>
         </div>
 
         <!-- 資産ヒーロー -->
         <div class="asset-hero">
           <span class="asset-hero-label">つみたてに使える資産</span>
+
           <div class="asset-row">
             <span class="asset-name">保有ポイント</span>
             <span class="asset-amount"><span class="asset-unit">P</span>1,000</span>
@@ -339,19 +497,23 @@
               500Pが期限切れ間近（2026/03/31）
             </div>
           </div>
+
           <div class="asset-divider"></div>
+
           <div class="asset-row">
             <span class="asset-name">売上金</span>
             <span class="asset-amount"><span class="asset-unit">¥</span>3,000</span>
           </div>
+
           <div class="asset-divider"></div>
+
           <div class="asset-total">
             <span class="asset-total-label">合計</span>
             <span class="asset-total-amount">約 ¥4,000</span>
           </div>
         </div>
 
-        <!-- プライマリボタン＋後押しメッセージ -->
+        <!-- プライマリボタン + 後押しバナー -->
         <div class="action-section">
           <div class="nudge-banner">
             <span class="nudge-text">1,000円を3ヶ月つみたてると</span>
@@ -367,7 +529,6 @@
       <div class="home-indicator">
         <div class="home-bar"></div>
       </div>
-
     </div>
 
   </div>
