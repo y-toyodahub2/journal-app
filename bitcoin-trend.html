@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ビットコイン価格推移</title>
+  <title>ビットコインをはじめよう</title>
   <style>
     /* =============================================
        DS4.0 Design Tokens
@@ -41,20 +41,18 @@
       --spacing16: 16px;
       --spacing24: 24px;
 
+      --radius-small:  4px;
       --radius-medium: 8px;
       --radius-large:  16px;
 
       --border-extra-thin: 0.5px;
       --border-thin:       1px;
-
-      /* ページ固有カラー（Figmaデザイン準拠） */
-      --background-page: #ffef5f;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: var(--background-basic-secondary);
+      background: var(--background-basic-primary);
       display: flex;
       justify-content: center;
       min-height: 100vh;
@@ -68,112 +66,177 @@
     .device {
       width: 375px;
       min-height: 812px;
-      background: var(--background-page);
+      position: relative;
+      overflow: hidden;
+      background: var(--background-basic-tertiary);
+    }
+
+    /* 背景アプリ */
+    .bg-app {
+      position: absolute;
+      inset: 0;
+      background: var(--background-basic-primary);
       display: flex;
       flex-direction: column;
     }
-
-    /* ステータスバー */
-    .status-bar {
+    .bg-status {
       height: 54px;
+      background: var(--background-basic-tertiary);
       display: flex;
       align-items: flex-end;
       padding: 0 var(--spacing16) var(--spacing8);
       justify-content: space-between;
       flex-shrink: 0;
     }
-    .status-time {
+    .bg-status-time {
       font-size: var(--fontsize-large);
       font-weight: var(--fontweight-bold);
       color: var(--foreground-basic-primary);
     }
-    .status-icons { display: flex; align-items: center; gap: var(--spacing8); }
-
-    /* =============================================
-       ページコンテンツ
-       ============================================= */
-    .page-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding: 0 var(--spacing24) var(--spacing16);
-      gap: var(--spacing16);
+    .bg-status-icons { display: flex; align-items: center; gap: var(--spacing8); }
+    .bg-nav {
+      height: 44px;
+      background: var(--background-basic-tertiary);
+      border-bottom: var(--border-extra-thin) solid var(--border-basic-primary);
+      display: flex; align-items: center;
+      padding: 0 var(--spacing16); flex-shrink: 0;
     }
-
-    /* トップバー：ロゴ + 注意事項 */
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-bottom: var(--spacing8);
-    }
-    .logo {
-      font-size: 16px;
+    .bg-nav-title {
+      font-size: var(--fontsize-large);
       font-weight: var(--fontweight-bold);
       color: var(--foreground-basic-primary);
-      letter-spacing: -0.3px;
     }
-    .disclaimer-link {
-      font-size: var(--fontsize-xsmall);
-      color: var(--foreground-basic-primary);
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      text-decoration: none;
+    .bg-content {
+      flex: 1; padding: var(--spacing16);
+      display: flex; flex-direction: column;
+      gap: var(--spacing12); overflow: hidden;
     }
-    .disclaimer-link svg {
+    .bg-card {
+      background: var(--background-basic-tertiary);
+      border-radius: var(--radius-medium);
+      padding: var(--spacing12);
+      display: flex; gap: var(--spacing12);
+      align-items: center; opacity: 0.55;
+    }
+    .bg-thumb {
+      width: 60px; height: 60px;
+      border-radius: var(--radius-medium);
+      background: var(--background-basic-secondary);
       flex-shrink: 0;
     }
+    .bg-lines { display: flex; flex-direction: column; gap: var(--spacing4); }
+    .bg-line-a { width: 140px; height: 11px; background: var(--background-basic-secondary); border-radius: var(--radius-small); }
+    .bg-line-b { width: 90px;  height: 9px;  background: var(--background-basic-secondary); border-radius: var(--radius-small); opacity: 0.7; }
+    .bg-line-c { width: 60px;  height: 11px; background: var(--background-basic-secondary); border-radius: var(--radius-small); margin-top: var(--spacing4); }
 
-    /* 大見出し */
-    .headline {
-      font-size: 26px;
-      font-weight: var(--fontweight-bold);
-      line-height: 1.6;
-      color: var(--foreground-basic-primary);
-      text-align: center;
-      letter-spacing: -0.5px;
+    /* スクリム */
+    .overlay {
+      position: absolute; inset: 0;
+      background: rgba(0, 0, 0, 0.45);
     }
 
     /* =============================================
-       チャートカード
+       Bottom Sheet
        ============================================= */
-    .chart-card {
+    .sheet {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
       background: var(--background-basic-tertiary);
-      border-radius: var(--spacing4);
-      padding: var(--spacing12) var(--spacing8) var(--spacing8);
+      border-radius: var(--radius-large) var(--radius-large) 0 0;
+      display: flex; flex-direction: column;
+    }
+    .sheet-handle {
+      display: flex; justify-content: center;
+      padding: var(--spacing8) 0 var(--spacing4);
+    }
+    .sheet-handle-bar {
+      width: 36px; height: 4px;
+      background: var(--border-basic-primary); border-radius: 99px;
+    }
+    .sheet-nav {
+      height: 44px;
+      display: flex; align-items: center; position: relative;
+      border-bottom: var(--border-extra-thin) solid var(--border-basic-primary);
+      padding: 0 var(--spacing4); flex-shrink: 0;
+    }
+    .sheet-nav-close {
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; flex-shrink: 0;
+    }
+    .sheet-nav-title {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      font-size: var(--fontsize-large);
+      font-weight: var(--fontweight-bold);
+      line-height: var(--lineheight-body);
+      color: var(--foreground-basic-primary);
+      white-space: nowrap;
+    }
+    .paging {
+      display: flex; justify-content: center;
+      gap: var(--spacing8);
+      padding: var(--spacing8) var(--spacing16);
+    }
+    .dot { width: 4px; height: 4px; border-radius: 99px; background: var(--border-basic-primary); }
+    .dot.active { background: var(--foreground-attention-primary); }
+
+    /* =============================================
+       Sheet Body
+       ============================================= */
+    .sheet-body {
+      padding: var(--spacing4) var(--spacing16) 0;
+      display: flex; flex-direction: column;
+      gap: var(--spacing12);
+    }
+
+    /* メッセージ */
+    .message-title {
+      font-size: var(--fontsize-large);
+      font-weight: var(--fontweight-bold);
+      line-height: var(--lineheight-body);
+      color: var(--foreground-basic-primary);
+      text-align: center;
+    }
+    .message-body {
+      font-size: var(--fontsize-small);
+      font-weight: var(--fontweight-regular);
+      line-height: var(--lineheight-body);
+      color: var(--foreground-basic-secondary);
+      text-align: center;
+    }
+
+    /* チャートエリア */
+    .chart-wrap {
+      background: var(--background-basic-primary);
+      border-radius: var(--radius-medium);
+      padding: var(--spacing12) var(--spacing12) var(--spacing8);
       display: flex;
       flex-direction: column;
-      gap: var(--spacing4);
+      gap: var(--spacing8);
     }
     .chart-inner {
       display: flex;
       align-items: flex-start;
+      gap: var(--spacing4);
     }
     .chart-y-axis {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       flex-shrink: 0;
-      height: 166px;
-      padding-right: var(--spacing4);
+      height: 120px;
       align-items: flex-end;
     }
     .y-label {
       font-size: 5.5px;
-      color: var(--foreground-basic-primary);
+      color: var(--foreground-basic-secondary);
       white-space: nowrap;
       line-height: 1;
     }
-    .chart-area {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
     .chart-images {
+      flex: 1;
       position: relative;
-      width: 100%;
-      height: 166px;
+      height: 120px;
     }
     .chart-grid {
       position: absolute;
@@ -187,67 +250,85 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 126px;
+      height: 90px;
       object-fit: fill;
     }
     .chart-x-labels {
       display: flex;
       justify-content: space-between;
-      padding-top: 2px;
+      padding-top: var(--spacing4);
     }
     .x-label {
-      font-size: 5px;
-      color: var(--foreground-basic-primary);
-      white-space: nowrap;
+      font-size: var(--fontsize-xsmall);
+      color: var(--foreground-basic-secondary);
+      font-weight: var(--fontweight-regular);
     }
-    .chart-y-title-wrap {
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      font-size: 7px;
-      font-weight: var(--fontweight-bold);
-      color: var(--foreground-basic-primary);
-      align-self: center;
-      white-space: nowrap;
-      margin-right: 2px;
-      flex-shrink: 0;
+    .chart-note {
+      font-size: var(--fontsize-xsmall);
+      font-weight: var(--fontweight-regular);
+      line-height: var(--lineheight-body);
+      color: var(--foreground-basic-secondary);
+      text-align: right;
     }
 
-    /* 注意書き */
-    .notes {
-      font-size: 10px;
+    /* ハイライトテキスト */
+    .highlight-row {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing8);
+      background: var(--background-basic-tertiary);
+      border: var(--border-thin) solid var(--border-basic-primary);
+      border-radius: var(--radius-medium);
+      padding: var(--spacing12) var(--spacing16);
+    }
+    .highlight-icon { flex-shrink: 0; }
+    .highlight-text {
+      font-size: var(--fontsize-xsmall);
       font-weight: var(--fontweight-regular);
-      line-height: 1.6;
+      line-height: var(--lineheight-body);
+      color: var(--foreground-basic-secondary);
+    }
+    .highlight-text strong {
+      font-weight: var(--fontweight-bold);
       color: var(--foreground-basic-primary);
     }
 
     /* 次へボタン */
     .action-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 44px;
+      width: 100%; min-height: 44px;
       background: var(--background-brand-primary);
-      border-radius: var(--radius-medium);
+      border: none; border-radius: var(--radius-medium);
       font-family: var(--typeface-ios);
       font-size: var(--fontsize-medium);
       font-weight: var(--fontweight-bold);
       line-height: var(--lineheight-button);
       color: var(--foreground-basic-tertiary);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
       text-decoration: none;
-      margin-top: auto;
+    }
+
+    /* スキップ */
+    .btn-skip {
+      width: 100%; padding: var(--spacing8) 0;
+      background: transparent; border: none;
+      font-family: var(--typeface-ios);
+      font-size: var(--fontsize-medium);
+      font-weight: var(--fontweight-regular);
+      line-height: var(--lineheight-button);
+      color: var(--foreground-basic-secondary);
+      text-align: center; cursor: pointer;
     }
 
     /* Home indicator */
     .home-indicator {
       height: 34px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
+      display: flex; align-items: flex-end; justify-content: center;
       padding-bottom: var(--spacing8);
+      margin-top: var(--spacing8);
     }
     .home-bar {
-      width: 134px;
-      height: 5px;
+      width: 134px; height: 5px;
       background: var(--foreground-basic-primary);
       border-radius: 100px;
     }
@@ -256,94 +337,125 @@
 <body>
   <div class="device">
 
-    <!-- ステータスバー -->
-    <div class="status-bar">
-      <span class="status-time">9:41</span>
-      <div class="status-icons">
-        <svg width="18" height="12" viewBox="0 0 18 12" fill="#333">
-          <rect x="0" y="8" width="3" height="4" rx="0.5"/>
-          <rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/>
-          <rect x="9" y="3" width="3" height="9" rx="0.5"/>
-          <rect x="13.5" y="0" width="3" height="12" rx="0.5"/>
-        </svg>
-        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="#333" stroke-width="1.5" stroke-linecap="round">
-          <path d="M1 4.5C3.5 2 12.5 2 15 4.5"/>
-          <path d="M3.2 6.8C5 5.1 11 5.1 12.8 6.8"/>
-          <path d="M5.5 9C6.5 8 9.5 8 10.5 9"/>
-          <circle cx="8" cy="11" r="0.8" fill="#333" stroke="none"/>
-        </svg>
-        <svg width="26" height="12" viewBox="0 0 26 12">
-          <rect x="0" y="1" width="22" height="10" rx="2" stroke="#333" stroke-width="1" fill="none"/>
-          <rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#333"/>
-          <rect x="1.5" y="2.5" width="18" height="7" rx="1.2" fill="#333"/>
-        </svg>
-      </div>
-    </div>
-
-    <!-- ページコンテンツ -->
-    <div class="page-content">
-
-      <!-- トップバー -->
-      <div class="topbar">
-        <span class="logo">mercoin</span>
-        <a class="disclaimer-link" href="#">
-          注意事項
-          <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="#333" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="2,1 7,4 2,7"/>
+    <!-- 背景アプリ -->
+    <div class="bg-app">
+      <div class="bg-status">
+        <span class="bg-status-time">9:41</span>
+        <div class="bg-status-icons">
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="#333">
+            <rect x="0" y="8" width="3" height="4" rx="0.5"/>
+            <rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/>
+            <rect x="9" y="3" width="3" height="9" rx="0.5"/>
+            <rect x="13.5" y="0" width="3" height="12" rx="0.5"/>
           </svg>
-        </a>
-      </div>
-
-      <!-- 大見出し -->
-      <p class="headline">1ビットコインあたりの<br>直近5年間の価格変動を<br>グラフにしてみると…👀</p>
-
-      <!-- チャートカード -->
-      <div class="chart-card">
-        <div class="chart-inner">
-          <!-- 縦軸タイトル -->
-          <div class="chart-y-title-wrap">１ビットコインあたりの価格</div>
-
-          <!-- 縦軸ラベル -->
-          <div class="chart-y-axis">
-            <span class="y-label">¥20,000,000</span>
-            <span class="y-label">¥15,000,000</span>
-            <span class="y-label">¥10,000,000</span>
-            <span class="y-label">¥5,000,000</span>
-            <span class="y-label">¥0</span>
-          </div>
-
-          <!-- チャート本体 -->
-          <div class="chart-area">
-            <div class="chart-images">
-              <img class="chart-grid" src="https://www.figma.com/api/mcp/asset/e0394479-7fe1-4edf-aed6-5fb365db412d" alt="チャートグリッド">
-              <img class="chart-line" src="https://www.figma.com/api/mcp/asset/4074ab51-b023-490c-901f-b205c4f9b751" alt="価格推移ライン">
-            </div>
-            <div class="chart-x-labels">
-              <span class="x-label">2019/01/01</span>
-              <span class="x-label">2020/01/01</span>
-              <span class="x-label">2021/01/01</span>
-              <span class="x-label">2022/01/01</span>
-              <span class="x-label">2023/01/01</span>
-              <span class="x-label">2024/01/01</span>
-              <span class="x-label">2025/01/01</span>
-            </div>
-          </div>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="#333" stroke-width="1.5" stroke-linecap="round">
+            <path d="M1 4.5C3.5 2 12.5 2 15 4.5"/>
+            <path d="M3.2 6.8C5 5.1 11 5.1 12.8 6.8"/>
+            <path d="M5.5 9C6.5 8 9.5 8 10.5 9"/>
+            <circle cx="8" cy="11" r="0.8" fill="#333" stroke="none"/>
+          </svg>
+          <svg width="26" height="12" viewBox="0 0 26 12">
+            <rect x="0" y="1" width="22" height="10" rx="2" stroke="#333" stroke-width="1" fill="none"/>
+            <rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#333"/>
+            <rect x="1.5" y="2.5" width="18" height="7" rx="1.2" fill="#333"/>
+          </svg>
         </div>
       </div>
-
-      <!-- 注意書き -->
-      <p class="notes">
-        ※将来の価格上昇を保証するものではありません<br>
-        ※このグラフは、2019年1月1日～2025年3月10日における実際の1ビットコインあたりの価格推移です（外部データ利用／終値・中値）<br>
-        ※弊社サービスにおける実際の暗号資産の売買では、スプレッド（取引コスト）を含んだ金額がお客さまへの提示価格になります
-      </p>
-
-      <!-- 次へ -->
-      <a class="action-btn" href="bitcoin.html">次へ</a>
-
+      <div class="bg-nav"><span class="bg-nav-title">ホーム</span></div>
+      <div class="bg-content">
+        <div class="bg-card">
+          <div class="bg-thumb"></div>
+          <div class="bg-lines"><div class="bg-line-a"></div><div class="bg-line-b"></div><div class="bg-line-c"></div></div>
+        </div>
+        <div class="bg-card">
+          <div class="bg-thumb"></div>
+          <div class="bg-lines"><div class="bg-line-a"></div><div class="bg-line-b"></div><div class="bg-line-c"></div></div>
+        </div>
+        <div class="bg-card">
+          <div class="bg-thumb"></div>
+          <div class="bg-lines"><div class="bg-line-a"></div><div class="bg-line-b"></div><div class="bg-line-c"></div></div>
+        </div>
+      </div>
     </div>
 
-    <div class="home-indicator"><div class="home-bar"></div></div>
+    <!-- スクリム -->
+    <div class="overlay"></div>
+
+    <!-- ボトムシート -->
+    <div class="sheet">
+      <div class="sheet-handle"><div class="sheet-handle-bar"></div></div>
+
+      <div class="sheet-nav">
+        <div class="sheet-nav-close">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="3" x2="15" y2="15"/>
+            <line x1="15" y1="3" x2="3" y2="15"/>
+          </svg>
+        </div>
+        <span class="sheet-nav-title">ビットコインをはじめよう</span>
+      </div>
+
+      <div class="paging">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot active"></div>
+        <div class="dot"></div>
+      </div>
+
+      <div class="sheet-body">
+
+        <!-- メッセージ -->
+        <p class="message-title">長期でみると、右肩上がり</p>
+        <p class="message-body">短期では価格が上下しますが、<br>長期的にはビットコインは値上がりする傾向があります。</p>
+
+        <!-- チャート（Figmaアセット） -->
+        <div class="chart-wrap">
+          <div class="chart-inner">
+            <div class="chart-y-axis">
+              <span class="y-label">¥20,000,000</span>
+              <span class="y-label">¥15,000,000</span>
+              <span class="y-label">¥10,000,000</span>
+              <span class="y-label">¥5,000,000</span>
+              <span class="y-label">¥0</span>
+            </div>
+            <div class="chart-images">
+              <img class="chart-grid" src="https://www.figma.com/api/mcp/asset/e0394479-7fe1-4edf-aed6-5fb365db412d" alt="">
+              <img class="chart-line" src="https://www.figma.com/api/mcp/asset/4074ab51-b023-490c-901f-b205c4f9b751" alt="">
+            </div>
+          </div>
+          <div class="chart-x-labels">
+            <span class="x-label">2019</span>
+            <span class="x-label">2020</span>
+            <span class="x-label">2021</span>
+            <span class="x-label">2022</span>
+            <span class="x-label">2023</span>
+            <span class="x-label">2024</span>
+            <span class="x-label">2025</span>
+          </div>
+          <p class="chart-note">※ 過去の実績は将来の利益を保証するものではありません</p>
+        </div>
+
+        <!-- ハイライト -->
+        <div class="highlight-row">
+          <span class="highlight-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="7.5" stroke="#006ed1"/>
+              <path d="M8 5v4" stroke="#006ed1" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="8" cy="11.5" r="0.75" fill="#006ed1"/>
+            </svg>
+          </span>
+          <span class="highlight-text">コツコツつみたてることで、<strong>価格の波を平均化</strong>できます</span>
+        </div>
+
+        <!-- 次へ -->
+        <a class="action-btn" href="bitcoin.html">次へ</a>
+        <button class="btn-skip">今はやめておく</button>
+
+      </div>
+
+      <div class="home-indicator"><div class="home-bar"></div></div>
+    </div>
+
   </div>
 </body>
 </html>
